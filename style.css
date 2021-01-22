@@ -18,6 +18,12 @@ body {
     background-size: cover;
 }
 
+input {
+    font-family: inherit;
+    background: none;
+    border: none;
+}
+
 .time {
     font-size: 8rem;
     font-weight: 600;
@@ -25,12 +31,15 @@ body {
 
 .greeting,
 .name {
+    width: 22vw;
     font-size: 4rem;
     line-height: 6rem;
 }
 
 .focus,
 .enter_focus {
+    width: 30vw;
+    text-align: center;
     font-size: 3rem;
     line-height: 5rem;
 
