@@ -31,14 +31,17 @@ input {
 
 .greeting,
 .name {
-    width: 22vw;
     font-size: 4rem;
     line-height: 6rem;
 }
 
-.focus,
-.enter_focus {
-    width: 30vw;
+.name {
+    width: 310px;
+}
+
+.question,
+.focus {
+    min-width: 310px;
     text-align: center;
     font-size: 3rem;
     line-height: 5rem;

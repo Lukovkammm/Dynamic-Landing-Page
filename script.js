@@ -1,12 +1,13 @@
 const time = document.querySelector('.time');
 const greeting = document.querySelector('.greeting');
 const yourName = document.querySelector('.name');
-const focus = document.querySelector('.enter_focus');
+const focus = document.querySelector('.focus');
+
+let localStorageKey = '';
 
 window.onload = () => {
     setInterval(showTime, 1000);
-    getName();
-    getFocus();
+    getItem();
 }
 
 function showTime() {
@@ -48,61 +49,35 @@ const content = {
 };
 
 function changeBackground(hours) {
-    if (hours < 12) {
-        document.body.style.backgroundImage = content.morning.image;
-        greeting.textContent = content.morning.greeting;
-    } else if (hours < 18) {
-        document.body.style.backgroundImage = content.afternoon.image;
-        greeting.textContent = content.afternoon.greeting;
-    } else if (hours < 22) {
-        document.body.style.backgroundImage = content.evening.image;
-        document.body.style.color = content.evening.color;
-        greeting.textContent = content.evening.greeting;
-    } else {
-        document.body.style.backgroundImage = content.night.image;
-        document.body.style.color = content.night.color;
-        greeting.textContent = content.night.greeting;
-    }
+    let timeOfDay;
+    hours < 12 ? timeOfDay = 'morning' : hours < 18 ? timeOfDay = 'afternoon' : hours < 22 ? timeOfDay = 'evening' : timeOfDay = 'night';
+    document.body.style.backgroundImage = content[`${timeOfDay}`]['image'];
+    document.body.style.color = content[`${timeOfDay}`]['color'];
+    greeting.textContent = content[`${timeOfDay}`]['greeting'];
 }
 
-function getName() {
-    if (localStorage.getItem('name') === null) {
-        yourName.focus();
-    } else {
-        yourName.textContent = localStorage.getItem('name');
-    }
-}
-
-function setName(e) {
-    if (e.type === 'keypress') {
-        if (e.keyCode === 17) {
-            localStorage.setItem('name', e.target.textContent);
-            yourName.blur();
-        }
-    } else {
-        localStorage.setItem('name', e.target.textContent);
-    }
-}
-
-function getFocus() {
-    if (localStorage.getItem('focus') === null) {
-    } else {
-        focus.textContent = localStorage.getItem('focus');
-    }
-}
-
-function setFocus(e) {
+function setItem(e) {
     if (e.type === 'keypress') {
         if (e.keyCode === 13) {
-            localStorage.setItem('focus', e.target.textContent);
-            focus.blur();
+            localStorage.setItem(`${localStorageKey}`, e.target.value);
+            e.target.blur();
         }
-    } else {
-        localStorage.setItem('focus', e.target.textContent);
     }
 }
 
-yourName.addEventListener('keypress', setName);
-yourName.addEventListener('blur', setName);
-focus.addEventListener('keypress', setFocus);
-focus.addEventListener('blur', setFocus);
+function getItem() {
+    if (localStorage.getItem('name') === null || localStorage.getItem('focus') === null) {
+        setItem(localStorageKey);
+    } else {
+        yourName.value = localStorage.getItem('name');
+        focus.value = localStorage.getItem('focus');
+    }
+}
+
+document.body.addEventListener('click', (e) => {
+    if (e.target.tagName === 'INPUT') {
+        localStorageKey = e.target.classList.value;
+        e.target.addEventListener('keypress', setItem)
+        e.target.addEventListener('blur', setItem)
+    }
+})
