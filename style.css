@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    font-family: 'Dosis', sans-serif;
+    font-size: 10px;
+    font-weight: 200;
+    color: #201d1d;
+    background-size: cover;
+}
+
+input {
+    font-family: inherit;
+    background: none;
+    border: none;
+}
+
+.time {
+    font-size: 8rem;
+    font-weight: 600;
+}
+
+.greeting,
+.name {
+    font-size: 4rem;
+    line-height: 6rem;
+}
+
+.name {
+    width: 310px;
+}
+
+.question,
+.focus {
+    min-width: 310px;
+    text-align: center;
+    font-size: 3rem;
+    line-height: 5rem;
+
+}
